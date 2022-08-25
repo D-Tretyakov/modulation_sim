@@ -1,1 +1,6 @@
 .vscode
+*.exe
+build
+CMakeFiles
+wxWidget
+CMakeCache.txt
