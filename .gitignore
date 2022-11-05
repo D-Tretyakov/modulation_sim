@@ -3,5 +3,7 @@
 build
 CMakeFiles
 wxWidget
+eigen-3.4.0
 CMakeCache.txt
 *.ninja*
+*.cmake
