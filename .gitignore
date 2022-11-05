@@ -4,3 +4,4 @@ build
 CMakeFiles
 wxWidget
 CMakeCache.txt
+*.ninja*
