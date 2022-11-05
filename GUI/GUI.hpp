@@ -7,20 +7,20 @@
 #include <wx/sizer.h>
 
 class BasicDrawPane : public wxPanel
-{
-    
+{   
 public:
     BasicDrawPane(wxFrame* parent);
-    
-    void paintEvent(wxPaintEvent & evt);
-    void paintNow();
 
     void mouseDown(wxMouseEvent& event);
+    void mouseReleased(wxMouseEvent& event);
+    void mouseMoved(wxMouseEvent& event);
     
-    void render(wxDC& dc);
     void draw_dot(wxDC& dc, int x, int y);
        
     DECLARE_EVENT_TABLE()
+
+private:
+    bool m_MouseIsPressed;
 };
 
 
