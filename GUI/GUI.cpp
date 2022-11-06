@@ -1,4 +1,5 @@
 #include "GUI.hpp"
+#include <Eigen/Dense>
 
 bool App::OnInit()
 {
@@ -33,6 +34,8 @@ BEGIN_EVENT_TABLE(BasicDrawPane, wxPanel)
 EVT_LEFT_DOWN(BasicDrawPane::mouseDown)
 EVT_LEFT_UP(BasicDrawPane::mouseReleased)
 EVT_MOTION(BasicDrawPane::mouseMoved)
+
+EVT_PAINT(BasicDrawPane::paintEvent)
 
 END_EVENT_TABLE()
 
@@ -81,4 +84,28 @@ void BasicDrawPane::draw_dot(wxDC&  dc, int x, int y)
     dc.SetBrush(*wxBLACK_BRUSH); // black filling
     dc.SetPen( wxPen( wxColor(0,0,0), 1 ) ); // 1-pixels-thick black outline
     dc.DrawCircle( wxPoint(x, y), 2 /* radius */ );
+}
+
+void BasicDrawPane::paintEvent(wxPaintEvent & evt)
+{
+    // depending on your system you may need to look at double-buffered dcs
+    wxPaintDC dc(this);
+    render(dc);
+}
+
+void BasicDrawPane::render(wxDC& dc)
+{
+    wxSize window_size = dc.GetSize();
+    int x_offset = window_size.GetWidth() / 2;
+    int y_offset = window_size.GetHeight() / 2;
+
+    dc.SetPen(wxPen(*wxLIGHT_GREY, 1));
+    dc.DrawLine(0, y_offset, window_size.GetWidth(), y_offset);
+
+    const auto linspace = Eigen::VectorXf::LinSpaced(100, 0, 3.1415*2);
+    auto sin_values = linspace.array().sin();
+    for (int i = 0; i < linspace.size(); i++)
+    {
+        draw_dot(dc, (int)(linspace[i] / (3.1415*2) * window_size.GetWidth()), (int)(100*sin_values[i]) + y_offset);
+    }
 }

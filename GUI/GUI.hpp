@@ -15,12 +15,16 @@ public:
     void mouseReleased(wxMouseEvent& event);
     void mouseMoved(wxMouseEvent& event);
     
+    void paintEvent(wxPaintEvent& event);
+
     void draw_dot(wxDC& dc, int x, int y);
        
     DECLARE_EVENT_TABLE()
 
 private:
     bool m_MouseIsPressed;
+
+    void render(wxDC& dc);
 };
 
 
