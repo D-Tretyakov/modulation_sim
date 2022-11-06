@@ -6,32 +6,13 @@
 
 #include <wx/sizer.h>
 
-class BasicDrawPane : public wxPanel
-{   
-public:
-    BasicDrawPane(wxFrame* parent);
-
-    void mouseDown(wxMouseEvent& event);
-    void mouseReleased(wxMouseEvent& event);
-    void mouseMoved(wxMouseEvent& event);
-    
-    void paintEvent(wxPaintEvent& event);
-
-    void draw_dot(wxDC& dc, int x, int y);
-       
-    DECLARE_EVENT_TABLE()
-
-private:
-    bool m_MouseIsPressed;
-
-    void render(wxDC& dc);
-};
-
+#include "PlotGrid/PlotGrid.hpp"
 
 class App: public wxApp
 {
     bool OnInit();
     
-    wxFrame *frame;
-    BasicDrawPane * drawPane;
+    wxFrame* frame;
+    wxPanel* main_panel;
+    PlotGridPanel* grid;
 };
